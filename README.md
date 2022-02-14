@@ -5,6 +5,7 @@ Logistic regression and application to medical record data
 
 ## Overview
 In class, we described how to derive an OLS estimators in a linear regression model, which can be used to identify a best fit line. For this project, you will be implementing a logistic regression model using the same framework. Logistic regression is useful for classification because the function outputs a value between 0 and 1, which corresponds to categorical classification. 
+https://towardsdatascience.com/derivative-of-the-sigmoid-function-536880cf918e  
 
 For this project, you will be given a set of (simulated) medical record data from patients with small cell and non-small cell lung cancers (1). Code used to generate the data can be found in the patient.ipynb. The goal of this project is to write a class that performs logistic regression and apply it to this dataset to predict whether a patient has small cell or non-small cell lung cancer, using features that draw from demographic, medication, lab values, and/or procedures performed prior to their diagnosis.  
 
@@ -17,7 +18,6 @@ As a side note, for people interested in medical informatics, we're incredibly l
 
 ## Logistic regression
 To allow for binary classification using logistic regression, we used a sigmoid function to model the data. Just like in linear regression, we will define a loss function to keep track of how well the model performs, but instead of mean-squared error, you will need to implement a log loss (binary cross-entropy) function. This function minimizes the error when the predicted y is close to an expected value of 1 or 0. Here are some resources to get you started: 
-* https://towardsdatascience.com/derivative-of-the-sigmoid-function-536880cf918e  
 * https://towardsdatascience.com/understanding-binary-cross-entropy-log-loss-a-visual-explanation-a3ac6025181a
 * https://towardsdatascience.com/optimization-loss-function-under-the-hood-part-ii-d20a239cde11
 * https://ml-cheatsheet.readthedocs.io/en/latest/loss_functions.html

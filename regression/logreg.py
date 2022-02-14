@@ -31,10 +31,10 @@ class BaseRegressor():
         X_train = np.hstack([X_train, np.ones((X_train.shape[0], 1))])
         X_val = np.hstack([X_val, np.ones((X_val.shape[0], 1))])
         # Defining intitial values for while loop
-        prev_step_size = 1
+        prev_update_size = 1
         iteration = 1
         # Gradient descent
-        while prev_step_size > self.tol and iteration < self.max_iter:
+        while prev_update_size > self.tol and iteration < self.max_iter:
             # Shuffling the training data for each epoch of training
             shuffle_arr = np.concatenate([X_train, np.expand_dims(y_train, 1)], axis=1)
             # In place shuffle
@@ -45,8 +45,7 @@ class BaseRegressor():
             X_batch = np.array_split(X_train, num_batches)
             y_batch = np.array_split(y_train, num_batches)
             # Generating list to save the param updates per batch
-            step_size_epoch = []
-            
+            update_size_epoch = []
             # Iterating through batches (full for loop is one epoch of training)
             for X, y in zip(X_batch, y_batch):
                 # Making prediction on batch
@@ -58,17 +57,17 @@ class BaseRegressor():
                 # Storing previous weights and bias
                 prev_W = self.W
                 # Calculating gradient of loss function with respect to each parameter
-                grad = self.calculate_gradient(X, y)
+                grad = self.calculate_gradient(X_train, y_train)
                 # Updating parameters
                 new_W = prev_W - self.lr * grad
                 self.W = new_W
                 # Saving step size
-                step_size_epoch.append(np.abs(new_W - prev_W))
+                update_size_epoch.append(np.abs(new_W - prev_W))
                 # Validatoin pass
                 loss_val = self.loss_function(X_val, y_val)
                 self.loss_history_val.append(loss_val)
             # Defining step size as the average over the past epoch
-            prev_step_size = np.mean(np.array(step_size_epoch))
+            prev_update_size = np.mean(np.array(update_size_epoch))
             # Updating iteration number
             iteration += 1
     
@@ -105,6 +104,7 @@ class LogisticRegression(BaseRegressor):
             y (np.array): labels corresponding to X
 
         Returns: 
+            gradients for given loss function (np.ndarray)
         """
         pass
     
