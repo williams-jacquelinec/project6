@@ -47,3 +47,5 @@ To get started you will need to fork this repo onto your own github account. Wor
 # Additional notes
 Try tuning the hyperparameters if you find that your model doesn't converge. Hint: too high of a learning rate or too large of a batch size can sometimes cause the model to be unstable (loss function goes to infinity).
 
+Sklearn has some sample datasets (diabetes, breast cancer) that you can also use for testing. 
+

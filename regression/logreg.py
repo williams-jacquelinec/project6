@@ -47,7 +47,7 @@ class BaseRegressor():
             # Generating list to save the param updates per batch
             update_size_epoch = []
             # Iterating through batches (full for loop is one epoch of training)
-            for X, y in zip(X_batch, y_batch):
+            for X_train, y_train in zip(X_batch, y_batch):
                 # Making prediction on batch
                 y_pred = self.make_prediction(X_train)
                 # Calculating loss
@@ -59,7 +59,7 @@ class BaseRegressor():
                 # Calculating gradient of loss function with respect to each parameter
                 grad = self.calculate_gradient(X_train, y_train)
                 # Updating parameters
-                new_W = prev_W - self.lr * grad
+                new_W = prev_W - self.lr * grad 
                 self.W = new_W
                 # Saving step size
                 update_size_epoch.append(np.abs(new_W - prev_W))
@@ -88,6 +88,7 @@ class BaseRegressor():
         axs[0].set_ylabel('Train Loss')
         axs[1].set_ylabel('Val Loss')
         fig.tight_layout()
+        
 
 # import requireed modules
 class LogisticRegression(BaseRegressor):
