@@ -63,7 +63,7 @@ class BaseRegressor():
                 self.W = new_W
                 # Saving step size
                 update_size_epoch.append(np.abs(new_W - prev_W))
-                # Validatoin pass
+                # Validation pass
                 loss_val = self.loss_function(X_val, y_val)
                 self.loss_history_val.append(loss_val)
             # Defining step size as the average over the past epoch
@@ -90,15 +90,15 @@ class BaseRegressor():
         fig.tight_layout()
         
 
-# import requireed modules
+# import required modules
 class LogisticRegression(BaseRegressor):
-    def __init__(self, num_feats, learning_rate=0.1, tol=0.001, max_iter=100, batch_size=12):
+    def __init__(self, num_feats, learning_rate=0.1, tol=0.0001, max_iter=100, batch_size=12):
         super().__init__(num_feats, learning_rate, tol, max_iter, batch_size)
         
     def calculate_gradient(self, X, y) -> np.ndarray:
         """
-        TODO: write function to calculate gradient of loss function 
-        which will be used to update the weights 
+        TODO: write function to calculate gradient of the
+        logistic loss function to update the weights 
 
         Params:
             X (np.ndarray): feature values
@@ -111,8 +111,10 @@ class LogisticRegression(BaseRegressor):
     
     def loss_function(self, X, y) -> float:
         """
-        TODO: get y_pred from input X and implement
-        binary cross entropy loss function
+        TODO: get y_pred from input X and implement binary cross 
+        entropy loss function. Binary cross entropy loss assumes that 
+        the classification is either 1 or 0, not continuous, making
+        it more suited for (binary) classification.
 
         Params:
             X (np.ndarray): feature values
@@ -125,8 +127,8 @@ class LogisticRegression(BaseRegressor):
     
     def make_prediction(self, X) -> np.array:
         """
-        TODO: implement sigmoid function to get estimates (y_pred) for input
-        X values. The sigmoid function is a transformation of the linear model W.T(X)+b 
+        TODO: implement logistic function to get estimates (y_pred) for input
+        X values. The logistic function is a transformation of the linear model W.T(X)+b 
         into an "S-shaped" curve that can be used for binary classification
 
         Params: 
