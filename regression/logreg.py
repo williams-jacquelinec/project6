@@ -95,7 +95,7 @@ class LogisticRegression(BaseRegressor):
     def __init__(self, num_feats, learning_rate=0.1, tol=0.0001, max_iter=100, batch_size=12):
         super().__init__(num_feats, learning_rate, tol, max_iter, batch_size)
         
-    def calculate_gradient(self, X, y) -> np.ndarray:
+    def calculate_gradient(self, X, y): #-> np.ndarray:
         """
         TODO: write function to calculate gradient of the
         logistic loss function to update the weights 
@@ -107,9 +107,27 @@ class LogisticRegression(BaseRegressor):
         Returns: 
             gradients for given loss function (np.ndarray)
         """
-        pass
+        self.X = X 
+        self.y = y 
+
+        y_pred = self.make_prediction(X)
+        m = len(y)
+        error = y - y_pred 
+
+        # gradient of loss weights
+        weight_grad = (1/m) * X.T.dot(error)
+
+        other_grad = (1/m) * X.T.dot(error)
+
+        # print('here is weight_grad')
+        # print(weight_grad)
+        # print('here is other_grad')
+        # print(other_grad)
+        # print('')
+
+        return weight_grad
     
-    def loss_function(self, X, y) -> float:
+    def loss_function(self, X, y): #-> float:
         """
         TODO: get y_pred from input X and implement binary cross 
         entropy loss function. Binary cross entropy loss assumes that 
@@ -123,9 +141,19 @@ class LogisticRegression(BaseRegressor):
         Returns: 
             average loss 
         """
-        pass
+        self.X = X 
+        self.y = y 
+
+        y_pred = self.make_prediction(X)
+
+        y_pred[y_pred == 1] = 0.9999
+        y_pred[y_pred == 0] = 0.0001
+
+        bce_loss = -np.mean(y * (np.log(y_pred)) - (1 - y) * np.log(1 - y_pred))
+
+        return bce_loss
     
-    def make_prediction(self, X) -> np.array:
+    def make_prediction(self, X): #-> np.array:
         """
         TODO: implement logistic function to get estimates (y_pred) for input
         X values. The logistic function is a transformation of the linear model W.T(X)+b 
@@ -138,8 +166,144 @@ class LogisticRegression(BaseRegressor):
             y_pred for given X
         """
 
-        pass
+        # pass
+        self.X = X 
 
+        # adding bias term to X matrix if not already present
+        if X.shape[1] == self.num_feats:
+            X = np.hstack([X, np.ones((X.shape[0], 1))])
+        y_pred = self.sigmoid(X.dot(self.W).flatten())
 
+        return y_pred 
 
+    def sigmoid(self, z):
+        """
+        Sigmoid function: converts input z (a real number) into a value between 0 and 1.
+        """
+        self.z = z 
+
+        return 1.0/(1+np.exp(z)) 
+
+    def calculate_r2(self, X, y):
+        self.X = X 
+        self.y = y 
+
+        y_pred = self.make_prediction(X)
+        rss = ((y - y_pred)**2).sum()
+        # print("here is rss")
+        # print(rss)
+        tss = ((y - y.mean())**2).sum()
+        # print("here is tss")
+        # print(tss)
+        # print("here is rss/tss")
+        # print(rss/tss)
+        r2 = 1 - (rss/tss)
+
+        # print("here is the accuracy value")
+        return abs(r2)
     
+        
+
+# import random 
+# np.random.seed(10)
+
+# from utils import loadDataset  
+# from sklearn.preprocessing import StandardScaler
+
+# x_mat, y_mat = loadDataset()
+#print(x_mat.shape)
+
+# calculate_gradient returns gradients for a given loss function (# of gradients = num.feats)
+# print(LogisticRegression(num_feats = 6).calculate_gradient(x_mat, y_mat))
+
+# loss_function returns average loss (1 number)
+# print(LogisticRegression(num_feats = 6).loss_function(x_mat, y_mat))
+
+
+# X_train, X_val, y_train, y_val = loadDataset(features=['Penicillin V Potassium 500 MG', 'Computed tomography of chest and abdomen', 
+#                                 'Plain chest X-ray (procedure)',  'Low Density Lipoprotein Cholesterol', 
+#                                 'Creatinine', 'AGE_DIAGNOSIS'], split_percent=0.85, split_state=42)
+
+# # scale data since values vary across features
+# sc = StandardScaler()
+# X_train = sc.fit_transform(X_train)
+# X_val = sc.transform (X_val)
+# print("here is the shape of X (train & val) and the shape of y (train & val)")
+# print(X_train.shape, X_val.shape, y_train.shape, y_val.shape)
+
+# log_model = LogisticRegression(num_feats=6, max_iter=10000, tol=0.001, learning_rate=0.00001, batch_size=800)
+# print("here is printing log_model.W before training")
+# print(log_model.W)
+# log_model.train_model(X_train, y_train, X_val, y_val)
+# # What is self.W? How do I check it as it updates?
+# print("here is printing log_model.W after training?")
+# print(log_model.W)
+
+# # calculating the gradient values
+# print("here are the gradient values")
+# print(log_model.calculate_gradient(X_train, y_train))
+# print("length of gradient values =", len(log_model.calculate_gradient(X_train, y_train)))
+
+
+
+# # Checking how the loss function looks
+# print("here are loss function values with training data and validation data")
+# print(log_model.loss_function(X_train, y_train))
+# print(log_model.loss_function(X_val, y_val))
+
+# loss_difference = log_model.loss_function(X_train, y_train) - log_model.loss_function(X_val, y_val)
+# print("here is the difference in losses")
+# print(loss_difference)
+
+# # calculating accuracy
+# print('here is accuracy of training and validation data')
+# print(log_model.calculate_r2(X_train, y_train))
+# print(log_model.calculate_r2(X_val, y_val))
+
+# print("difference in accuracy values")
+# print(log_model.calculate_r2(X_train, y_train) - log_model.calculate_r2(X_val, y_val))
+
+# log_model.plot_loss_history()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        # gradient of loss bias
+        #bias_grad = (1/m) * np.sum(error)
+
+
+
+        # grad = - X.T.dot(error)
+        # print("this is what the linear regression grad formula gets:", grad)
+
+
+        # print('')
+        # print('testing the make_prediction formula')
+        # print('here is the y_pred value')
+        # print(y_pred)
+        # print('and here is the length of y_pred')
+        # print(len(y_pred))
+        # print('')
+        # print('here is what self.W is')
+        # print(self.W)
+
+                # print(X.shape)
+
+        # print("here is self.W I think")
+        # print(self.W)

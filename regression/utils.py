@@ -38,6 +38,7 @@ def loadDataset(features=['Penicillin V Potassium 500 MG', 'Computed tomography 
 
     """
     # get dataset
+    # full_df = pd.read_csv("NSCLCdata.csv", index_col="ID")
     full_df = pd.read_csv("./data/NSCLCdata.csv", index_col="ID")
     
     if "NSCLC" not in features: 
