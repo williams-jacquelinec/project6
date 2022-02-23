@@ -182,7 +182,7 @@ class LogisticRegression(BaseRegressor):
         """
         self.z = z 
 
-        return 1.0/(1+np.exp(z)) 
+        return 1.0/(1+np.exp(-z)) 
 
     def calculate_r2(self, X, y):
         self.X = X 

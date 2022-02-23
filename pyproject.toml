@@ -9,7 +9,7 @@ readme = "README.md"
 license = {file = "LICENSE"}
 classifiers = ["License :: OSI Approved :: MIT License"]
 dynamic = ["version", "description"]
-dependencies = ["matplotlib==3.3.2", "numpy==1.19.2", "pandas==1.1.3", "scikit_learn==1.0.2", "pytest"]
+dependencies = ["matplotlib", "numpy", "pandas", "scikit_learn", "pytest"]
 
 [project.urls]
 Home = "https://github.com/williams-jacquelinec/project6"
