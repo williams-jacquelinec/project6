@@ -39,7 +39,7 @@ def test_updates():
 
 	loss_difference = train_losses - val_losses
 
-	assert abs(loss_difference) < 0.2
+	assert abs(loss_difference) < 0.5
 
 def test_predict():
 	"""
