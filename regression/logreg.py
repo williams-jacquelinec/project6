@@ -117,14 +117,6 @@ class LogisticRegression(BaseRegressor):
         # gradient of loss weights
         weight_grad = (1/m) * X.T.dot(error)
 
-        other_grad = (1/m) * X.T.dot(error)
-
-        # print('here is weight_grad')
-        # print(weight_grad)
-        # print('here is other_grad')
-        # print(other_grad)
-        # print('')
-
         return weight_grad
     
     def loss_function(self, X, y): #-> float:
@@ -172,8 +164,8 @@ class LogisticRegression(BaseRegressor):
         # adding bias term to X matrix if not already present
         if X.shape[1] == self.num_feats:
             X = np.hstack([X, np.ones((X.shape[0], 1))])
-        y_pred = self.sigmoid(X.dot(self.W).flatten())
 
+        y_pred = self.sigmoid(X.dot(self.W).flatten())
         return y_pred 
 
     def sigmoid(self, z):
@@ -181,7 +173,6 @@ class LogisticRegression(BaseRegressor):
         Sigmoid function: converts input z (a real number) into a value between 0 and 1.
         """
         self.z = z 
-
         return 1.0/(1+np.exp(-z)) 
 
     def calculate_r2(self, X, y):
@@ -190,16 +181,8 @@ class LogisticRegression(BaseRegressor):
 
         y_pred = self.make_prediction(X)
         rss = ((y - y_pred)**2).sum()
-        # print("here is rss")
-        # print(rss)
         tss = ((y - y.mean())**2).sum()
-        # print("here is tss")
-        # print(tss)
-        # print("here is rss/tss")
-        # print(rss/tss)
         r2 = 1 - (rss/tss)
-
-        # print("here is the accuracy value")
         return abs(r2)
     
         
