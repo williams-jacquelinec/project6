@@ -37,7 +37,9 @@ def test_updates():
 	train_losses = log_model_updates.loss_function(X_train, y_train)
 	val_losses = log_model_updates.loss_function(X_val, y_val)
 
-	assert abs(train_losses-val_losses) < 0.2
+	loss_difference = train_losses - val_losses
+
+	assert abs(loss_difference) < 0.2
 
 def test_predict():
 	"""
