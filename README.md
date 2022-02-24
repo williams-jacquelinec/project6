@@ -1,3 +1,5 @@
+! [BuildStatus] (https://github.com/williams-jacquelinec/Project6/workflows/Project6/badge.svg?event=push)
+
 # Project 6
 Logistic regression and application to medical record data
 

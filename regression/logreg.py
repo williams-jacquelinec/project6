@@ -176,6 +176,9 @@ class LogisticRegression(BaseRegressor):
         return 1.0/(1+np.exp(-z)) 
 
     def calculate_r2(self, X, y):
+        """
+        Function to determine accuracy.
+        """
         self.X = X 
         self.y = y 
 
@@ -185,108 +188,7 @@ class LogisticRegression(BaseRegressor):
         r2 = 1 - (rss/tss)
         return abs(r2)
     
-        
-
-# import random 
-# np.random.seed(10)
-
-# from utils import loadDataset  
-# from sklearn.preprocessing import StandardScaler
-
-# x_mat, y_mat = loadDataset()
-#print(x_mat.shape)
-
-# calculate_gradient returns gradients for a given loss function (# of gradients = num.feats)
-# print(LogisticRegression(num_feats = 6).calculate_gradient(x_mat, y_mat))
-
-# loss_function returns average loss (1 number)
-# print(LogisticRegression(num_feats = 6).loss_function(x_mat, y_mat))
-
-
-# X_train, X_val, y_train, y_val = loadDataset(features=['Penicillin V Potassium 500 MG', 'Computed tomography of chest and abdomen', 
-#                                 'Plain chest X-ray (procedure)',  'Low Density Lipoprotein Cholesterol', 
-#                                 'Creatinine', 'AGE_DIAGNOSIS'], split_percent=0.85, split_state=42)
-
-# # scale data since values vary across features
-# sc = StandardScaler()
-# X_train = sc.fit_transform(X_train)
-# X_val = sc.transform (X_val)
-# print("here is the shape of X (train & val) and the shape of y (train & val)")
-# print(X_train.shape, X_val.shape, y_train.shape, y_val.shape)
-
-# log_model = LogisticRegression(num_feats=6, max_iter=10000, tol=0.001, learning_rate=0.00001, batch_size=800)
-# print("here is printing log_model.W before training")
-# print(log_model.W)
-# log_model.train_model(X_train, y_train, X_val, y_val)
-# # What is self.W? How do I check it as it updates?
-# print("here is printing log_model.W after training?")
-# print(log_model.W)
-
-# # calculating the gradient values
-# print("here are the gradient values")
-# print(log_model.calculate_gradient(X_train, y_train))
-# print("length of gradient values =", len(log_model.calculate_gradient(X_train, y_train)))
-
-
-
-# # Checking how the loss function looks
-# print("here are loss function values with training data and validation data")
-# print(log_model.loss_function(X_train, y_train))
-# print(log_model.loss_function(X_val, y_val))
-
-# loss_difference = log_model.loss_function(X_train, y_train) - log_model.loss_function(X_val, y_val)
-# print("here is the difference in losses")
-# print(loss_difference)
-
-# # calculating accuracy
-# print('here is accuracy of training and validation data')
-# print(log_model.calculate_r2(X_train, y_train))
-# print(log_model.calculate_r2(X_val, y_val))
-
-# print("difference in accuracy values")
-# print(log_model.calculate_r2(X_train, y_train) - log_model.calculate_r2(X_val, y_val))
-
-# log_model.plot_loss_history()
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        # gradient of loss bias
-        #bias_grad = (1/m) * np.sum(error)
-
-
-
-        # grad = - X.T.dot(error)
-        # print("this is what the linear regression grad formula gets:", grad)
-
-
-        # print('')
-        # print('testing the make_prediction formula')
-        # print('here is the y_pred value')
-        # print(y_pred)
-        # print('and here is the length of y_pred')
-        # print(len(y_pred))
-        # print('')
-        # print('here is what self.W is')
-        # print(self.W)
-
-                # print(X.shape)
-
-        # print("here is self.W I think")
-        # print(self.W)

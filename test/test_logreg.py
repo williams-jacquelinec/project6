@@ -25,7 +25,7 @@ def test_updates():
 	- Check that your loss function is correct and that you have reasonable losses at the end of training
 	"""
 
-	log_model_updates = logreg.LogisticRegression(num_feats=6, max_iter=1000, tol=0.01, learning_rate=0.00001, batch_size=12)
+	log_model_updates = logreg.LogisticRegression(num_feats=6, max_iter=10000, tol=0.001, learning_rate=0.0001, batch_size=12)
 	log_model_updates.train_model(X_train, y_train, X_val, y_val)
 
 	# Check gradient calculation
@@ -37,7 +37,7 @@ def test_updates():
 	train_losses = log_model_updates.loss_function(X_train, y_train)
 	val_losses = log_model_updates.loss_function(X_val, y_val)
 
-	assert abs(train_losses-val_losses) < 0.5
+	assert abs(train_losses-val_losses) < 0.2
 
 def test_predict():
 	"""
@@ -45,7 +45,7 @@ def test_predict():
 	- Check that self.W is being updated as expected and produces reasonable estimates for NSCLC classification.
 	- Check accuracy of model after training.
 	"""
-	log_model_predict = logreg.LogisticRegression(num_feats=6, max_iter=1000, tol=0.01, learning_rate=0.00001, batch_size=12)
+	log_model_predict = logreg.LogisticRegression(num_feats=6, max_iter=10000, tol=0.001, learning_rate=0.0001, batch_size=12)
 
 	# checking that self.W is being updated
 	pre_training_W = log_model_predict.W 
@@ -62,5 +62,5 @@ def test_predict():
 
 	accuracy_difference = abs(train_accuracy-val_accuracy)
 
-	assert accuracy_difference < 0.01
+	assert accuracy_difference < 0.05
 	
