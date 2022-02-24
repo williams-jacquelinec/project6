@@ -15,11 +15,16 @@ from sklearn.preprocessing import StandardScaler
 # Setting the seed
 np.random.seed(10)
 
+# setting up the data
 X_train, X_val, y_train, y_val = utils.loadDataset(features=['Penicillin V Potassium 500 MG', 'Computed tomography of chest and abdomen', 
                                     'Plain chest X-ray (procedure)',  'Low Density Lipoprotein Cholesterol', 
                                     'Creatinine', 'AGE_DIAGNOSIS'], split_percent=0.8, split_state=42)
+# scale data since values vary across features
+sc = StandardScaler()
+X_train = sc.fit_transform(X_train)
+X_val = sc.transform(X_val)
 
-
+# performing tests
 def test_updates():
 	"""
 	TODO:
@@ -34,6 +39,9 @@ def test_updates():
 	gradient_values = log_model_updates.calculate_gradient(X_train, y_train)
 
 	assert len(gradient_values) == X_train.shape[1]
+
+	for i in gradient_values:
+		assert 0 <= i <= 1
 
 	# Check for reasonable losses
 	train_losses = log_model_updates.loss_function(X_train, y_train)
