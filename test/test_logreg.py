@@ -12,11 +12,13 @@ import random
 from regression import (logreg, utils)
 from sklearn.preprocessing import StandardScaler
 
+# Setting the seed
+np.random.seed(10)
+
 X_train, X_val, y_train, y_val = utils.loadDataset(features=['Penicillin V Potassium 500 MG', 'Computed tomography of chest and abdomen', 
                                     'Plain chest X-ray (procedure)',  'Low Density Lipoprotein Cholesterol', 
                                     'Creatinine', 'AGE_DIAGNOSIS'], split_percent=0.8, split_state=42)
-# Setting the seed
-np.random.seed(10)
+
 
 def test_updates():
 	"""
