@@ -33,6 +33,9 @@ def test_updates():
 
 	assert len(gradient_values) == X_train.shape[1]
 
+	for i in gradient_values:
+		assert 0 <= i <= 1
+
 	# Check for reasonable losses
 	train_losses = log_model_updates.loss_function(X_train, y_train)
 	val_losses = log_model_updates.loss_function(X_val, y_val)
